@@ -1,0 +1,11 @@
+[project]
+name = "meeting-notes"
+version = "0.1.0"
+description = "Gerador de atas de reunião usando IA (OpenAI e Anthropic)"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "streamlit>=1.47.1",
+    "openai>=1.0.0",
+    "anthropic>=0.34.0",
+]
