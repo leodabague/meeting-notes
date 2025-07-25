@@ -1,0 +1,49 @@
+João: Bom dia pessoal, vamos começar nossa reunião de planejamento semanal. Hoje é segunda-feira, 15 de janeiro de 2025. Estão presentes eu, Maria da área comercial e Pedro do desenvolvimento.
+
+Maria: Bom dia! Antes de começar, gostaria de apresentar os números da semana passada. Tivemos um aumento de 15% nas vendas em relação à semana anterior, principalmente devido à nova campanha de marketing digital.
+
+Pedro: Ótimo! Isso bate com o que vimos de tráfego no site. Tivemos 23% mais visitantes únicos e a taxa de conversão melhorou para 3.2%.
+
+João: Excelente! Vamos revisar os objetivos da semana atual então. Pedro, como está o desenvolvimento da nova funcionalidade de checkout?
+
+Pedro: Estamos no prazo. A implementação está 80% concluída. Esperamos finalizar até quarta-feira e fazer os testes na quinta. A única questão é que precisamos decidir sobre a integração de pagamento. Temos duas opções: Stripe ou Mercado Pago.
+
+Maria: Do ponto de vista comercial, o Mercado Pago faz mais sentido para nosso público brasileiro. As taxas são competitivas e os clientes confiam mais na marca.
+
+João: Concordo. Pedro, vamos com o Mercado Pago então. Você consegue implementar até sexta?
+
+Pedro: Sim, sem problemas. Já tenho a documentação da API e é bem similar ao que fizemos antes.
+
+João: Perfeito. Maria, sobre a campanha de marketing, o que temos planejado para esta semana?
+
+Maria: Vamos lançar a segunda fase da campanha na terça-feira. O foco será em remarketing para quem visitou o site mas não converteu. Também vamos testar novos criativos no Instagram e Facebook. O orçamento aprovado é de R$ 5.000 para esta semana.
+
+João: Ok. E sobre o atendimento ao cliente? Como estão os indicadores?
+
+Maria: Melhoraram bastante. O tempo médio de resposta caiu de 4 horas para 2 horas. A satisfação do cliente está em 4.3 de 5 estrelas. Ainda temos algumas reclamações sobre o processo de devolução, mas nada crítico.
+
+Pedro: Sobre as devoluções, posso criar uma página específica no site para automatizar parte do processo. Isso reduziria o trabalho manual e melhoraria a experiência do cliente.
+
+João: Boa ideia! Mas vamos priorizar o checkout primeiro. Podemos incluir isso no backlog para a próxima sprint.
+
+Maria: Perfeito. Ah, uma coisa importante: recebemos um feedback muito positivo de um cliente grande. Eles querem fazer uma parceria para vendas B2B. Pode ser uma oportunidade interessante.
+
+João: Vamos agendar uma reunião separada para discutir isso. Pode ser para quinta-feira?
+
+Maria: Sim, quinta às 14h funciona para mim.
+
+Pedro: Para mim também.
+
+João: Ótimo. Vamos revisar os próximos passos então. Pedro, checkout até quarta, integração Mercado Pago até sexta. Maria, lançamento da campanha na terça e reunião B2B na quinta. Eu vou acompanhar os KPIs gerais e preparar o relatório mensal.
+
+Maria: Uma última coisa: precisamos decidir sobre a participação na feira de e-commerce em março. O prazo para inscrição é sexta-feira.
+
+João: Vamos avaliar o ROI da feira do ano passado e decidir até quinta. Pedro, você pode me enviar os dados de leads que geramos lá?
+
+Pedro: Claro, envio ainda hoje.
+
+João: Perfeito. Alguma outra questão? Não? Então encerramos por aqui. Próxima reunião segunda-feira mesmo horário. Obrigado pessoal!
+
+Maria: Obrigada!
+
+Pedro: Valeu, tchau! 
