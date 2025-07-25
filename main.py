@@ -2,7 +2,6 @@ import streamlit as st
 import openai
 import anthropic
 from pathlib import Path
-import base64
 from datetime import datetime
 import os
 
@@ -65,11 +64,7 @@ def call_anthropic_api(api_key, prompt):
     except Exception as e:
         return f"Erro na API da Anthropic: {str(e)}"
 
-def download_markdown(content, filename="ata_reuniao.md"):
-    """Cria link para download do conteúdo em markdown"""
-    b64 = base64.b64encode(content.encode()).decode()
-    href = f'<a href="data:text/markdown;base64,{b64}" download="{filename}">📥 Baixar Ata em Markdown</a>'
-    return href
+
 
 def main():
     st.set_page_config(
@@ -164,7 +159,8 @@ def main():
                     )
             except Exception as e:
                 st.error(f"❌ Erro ao ler arquivo: {str(e)}")
-        
+    
+    with col2:
         # Área de contexto
         st.header("📋 Contexto da Reunião")
         context_text = st.text_area(
@@ -172,58 +168,63 @@ def main():
             height=150,
             placeholder="Ex: Reunião de planejamento semanal\nData: 15/01/2025\nParticipantes: João, Maria, Pedro\nObjetivo: Revisar metas do trimestre..."
         )
+        
+    # Geração da Ata | centralizada para usar o container wide
+    st.header("🤖 Geração da Ata")
     
-    with col2:
-        st.header("🤖 Geração da Ata")
-        
-        # Botão para gerar ata
-        if st.button("🚀 Gerar Ata de Reunião", type="primary", use_container_width=True):
-            if not transcription_text:
-                st.error("❌ Por favor, faça upload da transcrição primeiro!")
-            elif not context_text.strip():
-                st.error("❌ Por favor, adicione o contexto da reunião!")
-            elif not api_key:
-                st.error(f"❌ Por favor, adicione sua chave da API do {ai_provider}!")
-            else:
-                with st.spinner(f"🔄 Gerando ata usando {ai_provider}..."):
-                    # Carrega template
-                    template = load_template()
-                    
-                    # Cria prompt
-                    prompt = create_prompt(template, transcription_text, context_text)
-                    
-                    # Chama API
-                    if ai_provider == "OpenAI":
-                        result = call_openai_api(api_key, prompt)
-                    else:  # Anthropic
-                        result = call_anthropic_api(api_key, prompt)
-                    
-                    # Armazena resultado na sessão
-                    st.session_state.generated_ata = result
-                    st.session_state.generation_time = datetime.now().strftime("%Y%m%d_%H%M%S")
-        
-        # Exibe resultado se existir
-        if hasattr(st.session_state, 'generated_ata'):
-            st.header("📄 Ata Gerada")
-            
-            # Botões de ação
-            col_preview, col_download = st.columns([1, 1])
-            
-            with col_preview:
-                show_preview = st.button("👁️ Visualizar Ata", use_container_width=True)
-            
-            with col_download:
-                filename = f"ata_reuniao_{st.session_state.generation_time}.md"
-                download_link = download_markdown(st.session_state.generated_ata, filename)
-                st.markdown(download_link, unsafe_allow_html=True)
-            
-            # Preview da ata
-            if show_preview or 'show_ata' in st.session_state:
-                st.session_state.show_ata = True
+    # Botão para gerar ata
+    if st.button("🚀 Gerar Ata de Reunião", type="primary", use_container_width=False):
+        if not transcription_text:
+            st.error("❌ Por favor, faça upload da transcrição primeiro!")
+        elif not context_text.strip():
+            st.error("❌ Por favor, adicione o contexto da reunião!")
+        elif not api_key:
+            st.error(f"❌ Por favor, adicione sua chave da API do {ai_provider}!")
+        else:
+            with st.spinner(f"🔄 Gerando ata usando {ai_provider}..."):
+                # Carrega template
+                template = load_template()
                 
-                st.markdown("### 📋 Preview da Ata:")
-                st.markdown("---")
-                st.markdown(st.session_state.generated_ata)
+                # Cria prompt
+                prompt = create_prompt(template, transcription_text, context_text)
+                
+                # Chama API
+                if ai_provider == "OpenAI":
+                    result = call_openai_api(api_key, prompt)
+                else:  # Anthropic
+                    result = call_anthropic_api(api_key, prompt)
+                
+                # Armazena resultado na sessão
+                st.session_state.generated_ata = result
+                st.session_state.generation_time = datetime.now().strftime("%Y%m%d_%H%M%S")
+    
+        # Exibe resultado se existir
+    if hasattr(st.session_state, 'generated_ata'):
+        st.header("📄 Ata Gerada")
+        
+        # Botões de ação
+        col_preview, col_download = st.columns([1, 1])
+        
+        with col_preview:
+            show_preview = st.button("👁️ Visualizar Ata", use_container_width=True)
+        
+        with col_download:
+            filename = f"ata_reuniao_{st.session_state.generation_time}.md"
+            st.download_button(
+                label="📥 Baixar Ata em Markdown",
+                data=st.session_state.generated_ata,
+                file_name=filename,
+                mime="text/markdown",
+                use_container_width=True
+            )
+        
+        # Preview da ata
+        if show_preview or 'show_ata' in st.session_state:
+            st.session_state.show_ata = True
+            
+            st.markdown("### 📋 Preview da Ata:")
+            st.markdown("---")
+            st.markdown(st.session_state.generated_ata)
     
     # Footer
     st.markdown("---")
