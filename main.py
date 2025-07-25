@@ -108,11 +108,11 @@ def main():
         st.markdown("---")
         st.markdown("### 📋 Instruções")
         st.markdown("""
+        0. **Escolha provedor e adicione sua API Key**
         1. **Upload da transcrição** (arquivo .txt)
         2. **Adicione o contexto** da reunião
-        3. **Configure sua API Key**
-        4. **Clique em Gerar Ata**
-        5. **Baixe o resultado** em markdown
+        3. **Clique em Gerar Ata**
+        4. **Baixe o resultado** em markdown
         """)
     
     # Mostrar template se solicitado
