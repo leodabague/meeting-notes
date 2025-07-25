@@ -134,7 +134,8 @@ def main():
     col1, col2 = st.columns([1, 1])
     
     with col1:
-        st.header("📤 Upload da Transcrição")
+        st.header("[Passo 1]")
+        st.subheader("📤 Upload da Transcrição")
         
         # Upload do arquivo
         uploaded_file = st.file_uploader(
@@ -162,7 +163,8 @@ def main():
     
     with col2:
         # Área de contexto
-        st.header("📋 Contexto da Reunião")
+        st.header("[Passo 2]")
+        st.subheader("📋 Contexto da Reunião")
         context_text = st.text_area(
             "Cole aqui as informações do Google Calendar ou adicione contexto relevante:",
             height=150,
@@ -198,7 +200,7 @@ def main():
                 st.session_state.generated_ata = result
                 st.session_state.generation_time = datetime.now().strftime("%Y%m%d_%H%M%S")
     
-        # Exibe resultado se existir
+            # Exibe resultado se existir
     if hasattr(st.session_state, 'generated_ata'):
         st.header("📄 Ata Gerada")
         
@@ -206,7 +208,14 @@ def main():
         col_preview, col_download = st.columns([1, 1])
         
         with col_preview:
-            show_preview = st.button("👁️ Visualizar Ata", use_container_width=True)
+            # Verificar estado atual da visualização
+            is_showing = st.session_state.get('show_ata', False)
+            button_text = "🙈 Esconder Ata" if is_showing else "👁️ Visualizar Ata"
+            
+            if st.button(button_text, use_container_width=True):
+                # Toggle do estado
+                st.session_state.show_ata = not is_showing
+                st.rerun()
         
         with col_download:
             filename = f"ata_reuniao_{st.session_state.generation_time}.md"
@@ -219,10 +228,7 @@ def main():
             )
         
         # Preview da ata
-        if show_preview or 'show_ata' in st.session_state:
-            st.session_state.show_ata = True
-            
-            st.markdown("### 📋 Preview da Ata:")
+        if st.session_state.get('show_ata', False):
             st.markdown("---")
             st.markdown(st.session_state.generated_ata)
     
@@ -231,7 +237,7 @@ def main():
     st.markdown(
         """
         <div style='text-align: center; color: #666; padding: 10px;'>
-            🚀 Gerador de Atas de Reunião | Powered by AI
+            🚀 Gerador de Atas de Reunião | Powered by AI | Criado por Leo Dabague
         </div>
         """,
         unsafe_allow_html=True
